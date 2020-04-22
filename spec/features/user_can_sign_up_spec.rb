@@ -3,21 +3,18 @@ feature 'user can sign up' do
         before do
             visit root_path
             click_on "Sign up"
-        end
-
-        it 'should have a signup form' do
-            expect(page).to have_content "Password confirmation"
-        end
-
-        it 'user can fill form and submit' do
             fill_in "Name", with: "Bobert"
             fill_in "Email", with: "bob@bobert.com"
             fill_in "Password", with: "qwerty123"
             fill_in "Password confirmation", with: "qwerty123"
             click_on "Create"
+        end
+    
+        it 'user can fill form and submit' do
             expect(page).to have_content "You have signed up successfully"
         end
     end
+
     describe 'user gets informative error messages' do
         before do
             visit root_path
@@ -25,6 +22,7 @@ feature 'user can sign up' do
             fill_in "Email", with: "bob@bobert.com"
             fill_in "Password", with: "qwerty123"
         end
+
         it 'should give an error no name is given' do
             fill_in "Password confirmation", with: "qwerty123"
             click_on "Create"
@@ -37,9 +35,15 @@ feature 'user can sign up' do
             click_on "Create"
             expect(page).to have_content "Password confirmation doesn't match Password"
         end
+    end 
 
-        it 'does not allow duplicate signups' do
+    describe "user can't sign up twice" do 
+        before do 
+            visit root_path
+            click_on "Sign up"
             fill_in "Name", with: "Bobert"
+            fill_in "Email", with: "bob@bobert.com"
+            fill_in "Password", with: "qwerty123"
             fill_in "Password confirmation", with: "qwerty123"
             click_on "Create"
             click_on "Logout"
@@ -49,7 +53,10 @@ feature 'user can sign up' do
             fill_in "Password", with: "qwerty123"
             fill_in "Password confirmation", with: "qwerty123"
             click_on "Create"
+        end
+
+        it "should give an error when name is taken" do
             expect(page).to have_content "Name has already been taken"
         end
-    end 
+    end
 end
