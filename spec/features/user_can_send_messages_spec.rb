@@ -5,9 +5,7 @@ feature "user can send messages" do
     describe "sender logs-in and sends message" do    
         before do
             login_as(sender, scope: :user)
-            visit root_path
-            click_on "Inbox"
-            click_on "Compose"
+            visit new_conversation_path
             select "ali", from: "Recipients"
             fill_in "Subject", with: "Bonjour"
             fill_in "Type your message here", with: "Blablabla"
@@ -19,7 +17,7 @@ feature "user can send messages" do
         end
 
         it "message is visible in the sent messages section" do 
-            visit "/mailbox/sent"
+            visit mailbox_sent_path
             expect(page).to have_content "Blablabla"
         end
     end
