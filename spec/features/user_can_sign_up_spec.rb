@@ -38,20 +38,14 @@ feature 'user can sign up' do
     end 
 
     describe "user can't sign up twice" do 
+        let(:user) {create(:user)}
         before do 
             visit root_path
             click_on "Sign up"
-            fill_in "Name", with: "Bobert"
-            fill_in "Email", with: "bob@bobert.com"
-            fill_in "Password", with: "qwerty123"
-            fill_in "Password confirmation", with: "qwerty123"
-            click_on "Create"
-            click_on "Logout"
-            click_on "Sign up"
-            fill_in "Name", with: "Bobert"
-            fill_in "Email", with: "bob@bobert.com"
-            fill_in "Password", with: "qwerty123"
-            fill_in "Password confirmation", with: "qwerty123"
+            fill_in "Name", with: user.name
+            fill_in "Email", with: user.email
+            fill_in "Password", with: user.password
+            fill_in "Password confirmation", with: user.password
             click_on "Create"
         end
 
