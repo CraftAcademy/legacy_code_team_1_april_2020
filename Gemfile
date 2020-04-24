@@ -22,6 +22,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'capybara'
   gem 'pry-rails'
+  gem 'chromedriver-helper'
+  gem 'selenium-webdriver'
 end
 
 group :development do
