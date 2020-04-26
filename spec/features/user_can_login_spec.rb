@@ -42,21 +42,21 @@ feature "User can login" do
               expect(page).to have_content "Invalid Email or password"
             end
         end
+    end
 
-        describe "and log out" do
-            before do
-                login_as(user, scope: :user)
-                visit root_path
-            end
+    describe "and log out" do
+        before do
+            login_as(user, scope: :user)
+            visit root_path
+        end
 
-            it "has logout button" do
-                expect(page).to have_content "Logout"
-            end
+        it "has logout button" do
+            expect(page).to have_content "Logout"
+        end
 
-            it "destroys session" do
-                click_on "Logout"
-                expect(page).to have_content "Login"
-            end
+        it "destroys session" do
+            click_on "Logout"
+            expect(page).to have_content "Login"
         end
     end
 end
