@@ -4,10 +4,9 @@ feature "User can trash messages" do
 
     describe "sender sends message and receivers logs in and deletes it" do  
         before do
-            abc =sender.send_message(receiver, "Lorem ipsum...", "Subject")
-            puts abc
+            message = sender.send_message(receiver, "Lorem ipsum...", "Subject")
             login_as(receiver, scope: :user)
-            visit conversation_path(abc.notification_id)
+            visit conversation_path(message.notification_id)
             click_on "Move to trash"        
         end
         
