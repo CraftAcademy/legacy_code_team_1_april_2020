@@ -13,4 +13,16 @@ feature "User can read messages" do
             expect(page).to have_content "Lorem ipsum..."
         end
     end
+
+    describe "sender checks sent" do 
+        before do
+            sender.send_message(receiver, "Lorem ipsum...", "Subject")
+            login_as(sender, scope: :user)
+            visit mailbox_sent_path
+        end
+
+        it "sentbox has the message" do
+            expect(page).to have_content "Lorem ipsum..."  
+        end
+    end
 end 
